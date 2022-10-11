@@ -25,7 +25,7 @@ languages = ["af", "sq", "ar-SA", "ar-IQ", "ar-EG", "ar-LY", "ar-DZ", "ar-MA", "
              "es", "es-AR", "es-GT", "es-CR", "es-PA", "es-DO", "es-MX", "es-VE", "es-CO",
              "es-PE", "es-EC", "es-CL", "es-UY", "es-PY", "es-BO", "es-SV", "es-HN", "es-NI",
              "es-PR", "sx", "sv", "sv-FI", "th", "ts", "tn", "tr", "uk", "ur", "ve", "vi", "xh",
-             "ji", "zu"];
+             "ji", "zu"]
 
 vendors = ["Google Inc.", "Firefox", "Google" "Chrome", "Microsoft", "Edge", "Apple", "Safari", "Opera", "Brave",
            "Vivaldi",
@@ -47,7 +47,7 @@ stealth(driver1,
 driver1.set_window_position(0,0)
 driver1.get(upload_url)
 
-cookies = pickle.load(open("C:\\Users\\opc\Desktop\\tiktok-auto-poster\\cookies\\d-11-10-2022\\cookie-4.pkl", "rb"))
+cookies = pickle.load(open("./cookies/d-11-10-2022/cookie-4.pkl", "rb"))
 for cookie in cookies:
     driver1.add_cookie(cookie)
 driver1.refresh()
@@ -56,26 +56,10 @@ iframe = driver1.find_element_by_css_selector('iframe')
 driver1.switch_to.frame(iframe)
 time.sleep(5)
 upload = driver1.find_element_by_css_selector('input[type="file"]')
-video_path = 'C:\\Users\\opc\\Desktop\\tiktok-auto-poster\\videos\\vid.mp4'
+video_path = './videos/vid.mp4'
 upload.send_keys(video_path)
 caption = driver1.find_element_by_css_selector('div[spellcheck="false"]')
 caption.send_keys(video_path)
 time.sleep(5)
 send = driver1.find_element_by_css_selector('.css-y1m958').click()
-sleep(5)
-#buttons = driver1.find_element_by_xpath('//button')
-
-
-#pyautogui.hotkey('ctrl', '-')
-#pyautogui.hotkey('ctrl', '-')
-#pyautogui.hotkey('ctrl', '-')
-#pyautogui.hotkey('ctrl', '-')
-#pyautogui.hotkey('ctrl', '-')
-#time.sleep(1)
-#pyautogui.moveTo(x=94, y=253)
-#pyautogui.doubleClick(x=94, y=253)
-#pyautogui.write("C:\\Users\\opc\\Desktop\\tiktok-auto-poster\\videos\\vid.mp4")
-#pyautogui.press('enter')
-
-# ("https://www.tiktok.com/upload?lang=en")
-
+time.sleep(5)
