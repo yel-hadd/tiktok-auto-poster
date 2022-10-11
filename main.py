@@ -2,8 +2,7 @@ from selenium_stealth import stealth
 from selenium import webdriver
 import time;
 import random
-
-
+import pickle
 
 options = webdriver.ChromeOptions()
 options.add_argument('window-size=1440x2960')
@@ -11,9 +10,7 @@ options.add_argument('window-size=1440x2960')
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
 driver1 = webdriver.Chrome(options=options, executable_path=r"./chromedriver")
-driver2 = webdriver.Chrome(options=options, executable_path=r"./chromedriver")
-driver3 = webdriver.Chrome(options=options, executable_path=r"./chromedriver")
-driver4 = webdriver.Chrome(options=options, executable_path=r"./chromedriver")
+
 
 upload_url = "https://www.tiktok.com/upload?lang=en"
 
@@ -47,53 +44,38 @@ stealth(driver1,
         renderer=f"{renderers}",
         fix_hairline=True,
         )
-
-stealth(driver2,
-        languages=[f"{random.choice(languages)}", f"{random.choice(languages)}"],
-        vendor=f"{random.choice(vendors)}",
-        platform=f"{random.choice(platforms)}",
-        webgl_vendor=f"{random.choice(webgl)}",
-        renderer=f"{renderers}",
-        fix_hairline=True,
-        )
-
-stealth(driver3,
-        languages=[f"{random.choice(languages)}", f"{random.choice(languages)}"],
-        vendor=f"{random.choice(vendors)}",
-        platform=f"{random.choice(platforms)}",
-        webgl_vendor=f"{random.choice(webgl)}",
-        renderer=f"{renderers}",
-        fix_hairline=True,
-        )
-
-stealth(driver4,
-        languages=[f"{random.choice(languages)}", f"{random.choice(languages)}"],
-        vendor=f"{random.choice(vendors)}",
-        platform=f"{random.choice(platforms)}",
-        webgl_vendor=f"{random.choice(webgl)}",
-        renderer=f"{renderers}",
-        fix_hairline=True,
-        )
-# https://www.tiktok.com/login/phone-or-email/email
+driver1.set_window_position(0,0)
 driver1.get(upload_url)
-#driver1.add_cookie(cookie)
-driver2.get(upload_url)
-driver3.get(upload_url)
-driver4.get(upload_url)
-#
+
+cookies = pickle.load(open("C:\\Users\\opc\Desktop\\tiktok-auto-poster\\cookies\\d-11-10-2022\\cookie-4.pkl", "rb"))
+for cookie in cookies:
+    driver1.add_cookie(cookie)
+driver1.refresh()
+time.sleep(5)
+iframe = driver1.find_element_by_css_selector('iframe')
+driver1.switch_to.frame(iframe)
+time.sleep(5)
+upload = driver1.find_element_by_css_selector('input[type="file"]')
+video_path = 'C:\\Users\\opc\\Desktop\\tiktok-auto-poster\\videos\\vid.mp4'
+upload.send_keys(video_path)
+caption = driver1.find_element_by_css_selector('div[spellcheck="false"]')
+caption.send_keys(video_path)
+time.sleep(5)
+send = driver1.find_element_by_css_selector('.css-y1m958').click()
+sleep(5)
+#buttons = driver1.find_element_by_xpath('//button')
+
+
+#pyautogui.hotkey('ctrl', '-')
+#pyautogui.hotkey('ctrl', '-')
+#pyautogui.hotkey('ctrl', '-')
+#pyautogui.hotkey('ctrl', '-')
+#pyautogui.hotkey('ctrl', '-')
+#time.sleep(1)
+#pyautogui.moveTo(x=94, y=253)
+#pyautogui.doubleClick(x=94, y=253)
+#pyautogui.write("C:\\Users\\opc\\Desktop\\tiktok-auto-poster\\videos\\vid.mp4")
+#pyautogui.press('enter')
 
 # ("https://www.tiktok.com/upload?lang=en")
 
-
-# helium.drag_file(file_path="/Users/yel-hadd/PycharmProjects/pythonProject/vid.mp4", to='Select file')
-# helium.get_easily_readable_snippet()
-#
-# cells = find_all(S("table > tr > td", below="Post a video to your account"))
-# fields = [cell.web_element.text for cell in cells]
-#
-#
-# /html/body/div[1]/div/div[2]/div/iframe
-#
-# driver1.find_elements_by_xpath("9414f327-ce02-43ee-82ed-c0109ffec59e")
-# driver1.
-# driver1.find_element_by_name("Select file")

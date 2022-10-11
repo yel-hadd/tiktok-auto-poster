@@ -1,18 +1,24 @@
 import pickle
 from selenium_stealth import stealth
 from selenium import webdriver
+import selenium
 import time
 import random
 import os
+import pyautogui
 
 
 def startdriver():
     options = webdriver.ChromeOptions()
-    options.add_argument('window-size=1440x2960')
+    options.add_argument('window-size=500x500')
 
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option('useAutomationExtension', False)
-    driver = webdriver.Chrome(options=options, executable_path=r"./chromedriver")
+    
+    driver = webdriver.Chrome(options=options, executable_path=r"chromedriver.exe")
+    #driver.set_window_size(500, 500)
+    driver.set_window_position(0, 0)
+    
 
     languages = ["af", "sq", "ar-SA", "ar-IQ", "ar-EG", "ar-LY", "ar-DZ", "ar-MA", "ar-TN", "ar-OM",
                  "ar-YE", "ar-SY", "ar-JO", "ar-LB", "ar-KW", "ar-AE", "ar-BH", "ar-QA", "eu", "bg",
@@ -53,13 +59,35 @@ try:
     os.mkdir(f"./cookies/{groupname}-{time.strftime('%d-%m-%Y')}")
 except:
     pass
-driver = startdriver()
 
-for i in range(1, accounts):
-    driver.get("https://www.tiktok.com/login/phone-or-email/email")
+
+email = 'amajidbac@gmail.com'
+passw = 'AMAJID2001@'
+
+for i in range(0, accounts):
+    driver = startdriver()
+    driver.get("https://www.tiktok.com/login/phone-or-email/email/?lang=en")
+    time.sleep(3)
+    pyautogui.click(343, 268)
+    time.sleep(1)
+    pyautogui.write(email, interval=0.25)
+    pyautogui.press('tab')
+    pyautogui.write(passw, interval=0.25)
+    time.sleep(1)
+    pyautogui.press('enter')
+    time.sleep(1)
     y = input("tap Enter to save cookie")
-    pickle.dump(driver.get_cookies(), open(f"./cookies/{groupname}-{time.strftime('%d-%m-%Y')}/cookie-{i}.pkl", "wb"))
-    driver.close()
+    try:
+        pickle.dump(driver.get_cookies(), open(f"./cookies/{groupname}-{time.strftime('%d-%m-%Y')}/cookie-{i}.pkl", "wb"))
+    except selenium.common.exceptions.InvalidSessionIdException:
+        pass
+    try:
+        driver.close()
+    except selenium.common.exceptions.InvalidSessionIdException:
+        pass
+    
+    
+    
 
 """
 driver.get("https://www.tiktok.com")
