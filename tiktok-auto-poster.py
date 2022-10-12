@@ -66,7 +66,7 @@ def upload(cookie_path, video_path, caption):
     send = WebDriverWait(driver1, 100).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR,
                                                                                           '.css-y1m958')))
     send.click()
-    yay = WebDriverWait(driver1, 100).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
+    WebDriverWait(driver1, 100).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
                                                                                              "#portal-container > div > div > div.jsx-461155393.jsx-3220008684.modal > div.jsx-461155393.jsx-3220008684.modal-btn.emphasis")))
     driver1.close()
     return 0
