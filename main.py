@@ -1,13 +1,13 @@
 import os
-from selenium_stealth import stealth
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 import time
 import random
 import pickle
+from selenium import webdriver
+from selenium_stealth import stealth
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
@@ -59,12 +59,12 @@ def upload(cookie_path, video_path, caption):
     iframe = driver1.find_element(By.CSS_SELECTOR, 'iframe')
     driver1.switch_to.frame(iframe)
     file_picker = WebDriverWait(driver1, 100).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
-                                                                                          'input[type="file"]')))
+                                                                                                     'input[type="file"]')))
     file_picker.send_keys(video_path)
     caption_field = driver1.find_element(By.CSS_SELECTOR, 'div[spellcheck="false"]')
     caption_field.send_keys(caption)
     send = WebDriverWait(driver1, 100).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR,
-                                                                                            '.css-y1m958')))
+                                                                                          '.css-y1m958')))
     send.click()
     yay = WebDriverWait(driver1, 100).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
                                                                                              "#portal-container > div > div > div.jsx-461155393.jsx-3220008684.modal > div.jsx-461155393.jsx-3220008684.modal-btn.emphasis")))
@@ -99,7 +99,7 @@ def load():
     return cookies, videos, captions, hashtags
 
 
-def main():
+def tiktok_auto_sender():
     cookies, videos, captions, hashtags = load()
     num_of_uploads = 0
     for vid in videos:
@@ -113,5 +113,4 @@ def main():
             print(f"{num_of_uploads} videos has been uploaded !")
 
 
-
-main()
+tiktok_auto_sender()
