@@ -1,4 +1,4 @@
 venv*
 .idea*
 ./hashtags/*
-accounts*
+accounts/accounts.txt
