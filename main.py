@@ -101,14 +101,17 @@ def load():
 
 def main():
     cookies, videos, captions, hashtags = load()
-
+    num_of_uploads = 0
     for vid in videos:
         for cookie in cookies:
-            htag1 = {random.choice(hashtags)}
-            htag2 = {random.choice(hashtags)}
-            htag3 = {random.choice(hashtags)}
+            htag1 = random.choice(hashtags)
+            htag2 = random.choice(hashtags)
+            htag3 = random.choice(hashtags)
 
             upload(cookie, vid, f"{random.choice(captions)} {htag1} {htag2} {htag3}")
+            num_of_uploads += 1
+            print(f"{num_of_uploads} videos has been uploaded !")
+
 
 
 main()
