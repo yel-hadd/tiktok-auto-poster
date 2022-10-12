@@ -1,7 +1,11 @@
 def load_credentials():
-    logins = {'amajidbac@gmail.com': 'AMAJID2001@'}
+    logins = {}
+    with open("./accounts/accounts.txt", "r") as file:
+        data = ''.join([line.replace('\n', ',') for line in file.readlines()])
+        temp = data.split(',')
+    for account in temp:
+        logins[account.split(':')[0]] = account.split(':')[1]
     return logins
-
 
 
 def cookie_factory():
@@ -9,10 +13,8 @@ def cookie_factory():
     for e in creds:
         email = str(e)
         password = str(creds[e])
-        print(f"{email}:{password}")
+        print(email, password)
     return 0
 
+
 cookie_factory()
-
-
-
