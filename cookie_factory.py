@@ -60,10 +60,13 @@ def login(email, password):
     time.sleep(5)
 
     email_field = driver1.find_elements(By.CSS_SELECTOR, 'input')[0]
-    email_field.send_keys(email)
+    for chr in email:
+        email_field.send_keys(chr)
+        time.sleep(1.5/random.randint(2, 10))
     password_field = driver1.find_elements(By.CSS_SELECTOR, 'input')[1]
-    time.sleep(1)
-    password_field.send_keys(password)
+    for chr in password:
+        password_field.send_keys(chr)
+        time.sleep(1.5/random.randint(2, 10))
     time.sleep(1)
     submit = WebDriverWait(driver1, 100).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR,
                                                                                    'button[type="submit"]')))
