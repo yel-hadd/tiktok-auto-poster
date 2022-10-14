@@ -9,6 +9,11 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
+from pythonping import ping
+
+
+def switch_ip():
+    return 0
 
 
 def upload(cookie_path, video_path, caption):
@@ -63,7 +68,7 @@ def upload(cookie_path, video_path, caption):
                                                                                           '.css-y1m958')))
     send.click()
     WebDriverWait(driver1, 100).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
-                                                                                             "#portal-container > div > div > div.jsx-461155393.jsx-3220008684.modal > div.jsx-461155393.jsx-3220008684.modal-btn.emphasis")))
+                                                                                       "#portal-container > div > div > div.jsx-461155393.jsx-3220008684.modal > div.jsx-461155393.jsx-3220008684.modal-btn.emphasis")))
     driver1.close()
     return 0
 
@@ -106,7 +111,9 @@ def tiktok_auto_sender():
 
             upload(cookie, vid, f"{random.choice(captions)} {htag1} {htag2} {htag3}")
             num_of_uploads += 1
+            switch_ip()
             print(f"{num_of_uploads} videos has been uploaded !")
 
 
-tiktok_auto_sender()
+# tiktok_auto_sender()
+ping('127.0.0.1')

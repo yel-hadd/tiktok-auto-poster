@@ -56,23 +56,27 @@ def login(email, password):
             renderer=f"{renderers}",
             fix_hairline=True,
             )
+    driver1.get("https://www.tiktok.com/")
     driver1.get("https://www.tiktok.com/login/phone-or-email/email")
+
     time.sleep(5)
+    driver1.execute_script("window.scrollTo(0, 100)")
 
     email_field = driver1.find_elements(By.CSS_SELECTOR, 'input')[0]
     for chr in email:
         email_field.send_keys(chr)
-        time.sleep(1.5/random.randint(2, 10))
+        time.sleep(1.5 / random.randint(2, 10))
     password_field = driver1.find_elements(By.CSS_SELECTOR, 'input')[1]
     for chr in password:
         password_field.send_keys(chr)
-        time.sleep(1.5/random.randint(2, 10))
+        time.sleep(1.5 / random.randint(2, 10))
     time.sleep(1)
     submit = WebDriverWait(driver1, 100).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR,
-                                                                                   'button[type="submit"]')))
+                                                                                            'button[type="submit"]')))
+
+    time.sleep(10)
     submit.click()
 
-    time.sleep(5000)
     return 0
 
 

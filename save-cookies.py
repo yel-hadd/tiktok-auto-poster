@@ -6,6 +6,10 @@ import time
 import random
 import os
 import pyautogui
+from selenium import webdriver
+from selenium_stealth import stealth
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 def startdriver():
@@ -14,10 +18,13 @@ def startdriver():
 
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option('useAutomationExtension', False)
-    
-    driver = webdriver.Chrome(options=options, executable_path=r"chromedriver.exe")
-    #driver.set_window_size(500, 500)
-    driver.set_window_position(0, 0)
+
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    options.add_experimental_option('useAutomationExtension', False)
+
+    s = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(options=options, service=s)
     
 
     languages = ["af", "sq", "ar-SA", "ar-IQ", "ar-EG", "ar-LY", "ar-DZ", "ar-MA", "ar-TN", "ar-OM",
