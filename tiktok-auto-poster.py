@@ -54,23 +54,23 @@ def upload(cookie_path, video_path, caption):
     time.sleep(5)
     iframe = driver1.find_element(By.CSS_SELECTOR, 'iframe')
     driver1.switch_to.frame(iframe)
-    file_picker = WebDriverWait(driver1, 100).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
+    file_picker = WebDriverWait(driver1, 5000).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
                                                                                                      'input[type="file"]')))
     file_picker.send_keys(video_path)
     caption_field = driver1.find_element(By.CSS_SELECTOR, 'div[spellcheck="false"]')
     caption_field.send_keys(caption)
-    send = WebDriverWait(driver1, 100).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR,
+    send = WebDriverWait(driver1, 5000).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR,
                                                                                           '.css-y1m958')))
     send.click()
-    WebDriverWait(driver1, 100).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
+    WebDriverWait(driver1, 5000).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR,
                                                                                        "#portal-container > div > div > div.jsx-461155393.jsx-3220008684.modal > div.jsx-461155393.jsx-3220008684.modal-btn.emphasis")))
     driver1.close()
     return 0
 
 
 def load():
-    cookiepath = input("Enter Cookie Folder Path (Absolute Path Recommended): ")
-    videospath = input("Enter Videos Folder Path (Absolute Path Recommended): ")
+    cookiepath = "./cookies"
+    videospath = "./videos"
     videos = []
     for root, dirs, files in os.walk(os.path.abspath(videospath)):
         for file in files:
@@ -109,4 +109,11 @@ def tiktok_auto_sender():
             print(f"{num_of_uploads} videos has been uploaded !")
 
 
-tiktok_auto_sender()
+lst = [1, 2, 3, 4, 5]
+
+for i in lst:
+    try:
+        tiktok_auto_sender()
+    except:
+        pass
+    print(f"** All video has been posted {i} times **")
