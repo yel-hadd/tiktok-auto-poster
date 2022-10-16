@@ -18,7 +18,7 @@ def load_credentials():
         temp = data.split(',')
     for account in temp:
         logins[account.split(':')[0]] = account.split(':')[1]
-    return logins
+    return len(logins), logins
 
 
 def login(email, password):
@@ -60,7 +60,6 @@ def login(email, password):
     driver1.get("https://www.tiktok.com/login/phone-or-email/email")
 
     time.sleep(5)
-    driver1.execute_script("window.scrollTo(0, 100)")
 
     email_field = driver1.find_elements(By.CSS_SELECTOR, 'input')[0]
     for chr in email:

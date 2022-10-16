@@ -1,6 +1,4 @@
 import pickle
-from selenium_stealth import stealth
-from selenium import webdriver
 import selenium
 import time
 import random
@@ -10,6 +8,16 @@ from selenium import webdriver
 from selenium_stealth import stealth
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+
+
+def load_credentials():
+    logins = {}
+    with open("./accounts/accounts.txt", "r") as file:
+        data = ''.join([line.replace('\n', ',') for line in file.readlines()])
+        temp = data.split(',')
+    for account in temp:
+        logins[account.split(':')[0]] = account.split(':')[1]
+    return len(logins), logins
 
 
 def startdriver():
@@ -25,7 +33,6 @@ def startdriver():
 
     s = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(options=options, service=s)
-    
 
     languages = ["af", "sq", "ar-SA", "ar-IQ", "ar-EG", "ar-LY", "ar-DZ", "ar-MA", "ar-TN", "ar-OM",
                  "ar-YE", "ar-SY", "ar-JO", "ar-LB", "ar-KW", "ar-AE", "ar-BH", "ar-QA", "eu", "bg",
@@ -57,48 +64,35 @@ def startdriver():
             renderer=f"{renderers}",
             fix_hairline=True,
             )
+    driver.set_window_position(0, 0, windowHandle='current')
     return driver
 
 
-groupname = input("Enter cookie group name : ")
-accounts = int(input("How many accounts you want to save? : "))
+accounts, logins = load_credentials()
+
 try:
-    os.mkdir(f"./cookies/{groupname}-{time.strftime('%d-%m-%Y')}")
+    os.mkdir(f"./cookies")
 except:
     pass
 
-
-email = 'amajidbac@gmail.com'
-passw = 'AMAJID2001@'
-
-for i in range(0, accounts):
+for login in logins:
     driver = startdriver()
     driver.get("https://www.tiktok.com/login/phone-or-email/email/?lang=en")
-    time.sleep(3)
-    pyautogui.click(343, 268)
+    time.sleep(2)
+    pyautogui.click(547, 273)
     time.sleep(1)
-    pyautogui.write(email, interval=0.25)
+    pyautogui.write(str(login), interval=0.25)
     pyautogui.press('tab')
-    pyautogui.write(passw, interval=0.25)
+    pyautogui.write(str(logins[login]), interval=0.25)
     time.sleep(1)
     pyautogui.press('enter')
     time.sleep(1)
     y = input("tap Enter to save cookie")
     try:
-        pickle.dump(driver.get_cookies(), open(f"./cookies/{groupname}-{time.strftime('%d-%m-%Y')}/cookie-{i}.pkl", "wb"))
+        pickle.dump(driver.get_cookies(), open(f"./cookies/{login}.pkl", "wb"))
     except selenium.common.exceptions.InvalidSessionIdException:
         pass
     try:
         driver.close()
     except selenium.common.exceptions.InvalidSessionIdException:
         pass
-    
-    
-    
-
-"""
-driver.get("https://www.tiktok.com")
-cookies = pickle.load(open("./cookies/11-10-2022/cookie-1.pkl", "rb"))
-for cookie in cookies:
-    driver.add_cookie(cookie)
-"""
