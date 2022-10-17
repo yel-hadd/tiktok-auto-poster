@@ -90,7 +90,7 @@ def load():
                 captions.append(data)
 
     with open(os.path.abspath('./hashtags/hashtags.txt'), "r") as cp:
-        hashtags = ' '.join([line.replace('\n', '') for line in cp.readlines()]).split(',')
+        hashtags = ' '.join([line.replace('\n', '') for line in cp.readlines()]).split(' ')
 
     return cookies, videos, captions, hashtags
 
